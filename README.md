@@ -40,7 +40,7 @@
 ## 快速开始
 
 ```bash
-git clone <this-repo> && cd UseCase_Script_Composer/assets/template_project
+git clone https://github.com/1179249131/UseCase_Script_Composer.git && cd UseCase_Script_Composer/assets/template_project
 
 pip install -r requirements.txt
 python -m playwright install chromium   # 仅首次；本机有 Chrome 时会自动复用，可跳过
@@ -168,7 +168,7 @@ Windows 下执行脚本前置 `PYTHONUTF8=1`，避免控制台 GBK 解码报错�
 本仓库同时是一个 [opencode](https://opencode.ai) 规范的 skill。装有 opencode 的环境可直接软链：
 
 ```bash
-git clone <this-repo> ~/.config/opencode/skills/usecase-script-composer
+git clone https://github.com/1179249131/UseCase_Script_Composer.git ~/.config/opencode/skills/usecase-script-composer
 ```
 
 之后在对话里说「用 UseCase_Script_Composer 建一个浏览器自动化工程」即可，Agent 会按 `SKILL.md`
