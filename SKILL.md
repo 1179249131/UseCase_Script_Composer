@@ -1,5 +1,5 @@
 ---
-name: jben
+name: usecase-script-composer
 description: 浏览器 UI 自动化测试工程脚手架与规范工具链。从零搭建 pytest + Playwright/Selenium 双引擎测试工程，把 playwright codegen 录制脚本按四档定位策略改造成 PO 结构，连跑稳定性验收并导出 Excel 结果。用于：新建浏览器自动化测试工程、codegen 录制脚本改造、用例连跑验收。
 license: MIT
 compatibility: opencode
@@ -9,7 +9,7 @@ metadata:
   stack: pytest+playwright/selenium
 ---
 
-# jben — 浏览器 UI 自动化测试工程
+# UseCase_Script_Composer — 浏览器 UI 自动化测试工程
 
 ## What I do
 

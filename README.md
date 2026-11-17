@@ -1,4 +1,4 @@
-# jben
+# UseCase_Script_Composer
 
 **浏览器 UI 自动化测试工程脚手架** —— 建工程、改造录制脚本、连跑验收，一条链路闭环。
 
@@ -40,7 +40,7 @@
 ## 快速开始
 
 ```bash
-git clone <this-repo> && cd jben/assets/template_project
+git clone <this-repo> && cd UseCase_Script_Composer/assets/template_project
 
 pip install -r requirements.txt
 python -m playwright install chromium   # 仅首次；本机有 Chrome 时会自动复用，可跳过
@@ -91,7 +91,7 @@ pytest -v
 ## 目录结构
 
 ```
-jben/
+UseCase_Script_Composer/
 ├── SKILL.md                        # AI Agent 入口（可作为 opencode skill 安装）
 ├── README.md
 ├── scripts/                        # 工具链，与工程解耦，可独立使用
@@ -168,10 +168,10 @@ Windows 下执行脚本前置 `PYTHONUTF8=1`，避免控制台 GBK 解码报错�
 本仓库同时是一个 [opencode](https://opencode.ai) 规范的 skill。装有 opencode 的环境可直接软链：
 
 ```bash
-git clone <this-repo> ~/.config/opencode/skills/jben
+git clone <this-repo> ~/.config/opencode/skills/usecase-script-composer
 ```
 
-之后在对话里说「用 jben 建一个浏览器自动化工程」即可，Agent 会按 `SKILL.md`
+之后在对话里说「用 UseCase_Script_Composer 建一个浏览器自动化工程」即可，Agent 会按 `SKILL.md`
 的工作流拉模板、改录制脚本、跑验收。`SKILL.md` 里的规范与本文一致，只是面向 Agent 表述。
 
 ## 不适用范围
