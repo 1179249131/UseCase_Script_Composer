@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>演示系统 - 登录</title>
+<style>
+  :root {
+    --brand: #1677ff;
+    --brand-dark: #0958d9;
+    --text: #1f2329;
+    --text-sub: #646a73;
+    --border: #dee0e3;
+    --danger: #cf1322;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    color: var(--text);
+    font-family: "Microsoft YaHei", "PingFang SC", -apple-system, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(1100px 560px at 12% -10%, #e6f0ff 0%, rgba(230, 240, 255, 0) 62%),
+      radial-gradient(900px 520px at 108% 112%, #eaeef6 0%, rgba(234, 238, 246, 0) 58%),
+      #f7f8fa;
+  }
+  .card {
+    width: 384px;
+    padding: 40px 40px 34px;
+    background: #fff;
+    border: 1px solid rgba(31, 35, 41, .06);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(31, 35, 41, .04), 0 12px 32px rgba(31, 35, 41, .08);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 26px;
+  }
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4d9bff 0%, var(--brand) 55%, var(--brand-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .5px;
+  }
+  .brand-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    letter-spacing: .3px;
+  }
+  h1 {
+    margin: 0 0 6px;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: .2px;
+  }
+  .subtitle {
+    margin: 0 0 26px;
+    font-size: 13px;
+    color: var(--text-sub);
+  }
+  label {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-sub);
+  }
+  input {
+    display: block;
+    width: 100%;
+    margin-top: 7px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    background: #fbfbfc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  input:hover { border-color: #c2c6cc; }
+  input:focus {
+    outline: none;
+    background: #fff;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(22, 119, 255, .12);
+  }
+  button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 11px 0;
+    border: 0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(180deg, #2b85ff 0%, var(--brand) 100%);
+    box-shadow: 0 1px 2px rgba(22, 119, 255, .3), 0 4px 12px rgba(22, 119, 255, .22);
+    transition: transform .12s ease, box-shadow .18s ease, filter .18s ease;
+  }
+  button:hover { filter: brightness(1.06); box-shadow: 0 2px 4px rgba(22, 119, 255, .34), 0 6px 16px rgba(22, 119, 255, .26); }
+  button:active { transform: translateY(1px); box-shadow: 0 1px 2px rgba(22, 119, 255, .3); }
+  .error {
+    display: block;
+    margin: -4px 0 12px;
+    padding: 8px 11px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--danger);
+    background: #fff1f0;
+    border: 1px solid #ffccc7;
+    border-radius: 6px;
+  }
+  .error[hidden] { display: none; }
+  .foot {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f1f3;
+    font-size: 12px;
+    color: #9aa0a8;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="brand">
+    <span class="brand-mark">D</span>
+    <span class="brand-text">DEMO CONSOLE</span>
+  </div>
+  <h1 data-testid="login-title">演示系统登录</h1>
+  <p class="subtitle">用于自动化测试演练的本地示例应用</p>
+  <form id="login-form" novalidate>
+    <label>用户名
+      <input data-testid="login-username-input" name="username" autocomplete="off" placeholder="请输入用户名">
+    </label>
+    <label>密码
+      <input data-testid="login-password-input" type="password" name="password" placeholder="请输入密码">
+    </label>
+    <p data-testid="login-error-msg" class="error" hidden></p>
+    <button data-testid="login-submit-btn" type="submit">登录</button>
+  </form>
+  <div class="foot">演示账号 admin / 123456</div>
+</main>
+<script>
+// 演示账号：admin / 123456（由测试工程通过环境变量注入期望值，页面本身不参与断言逻辑）
+var USERS = { "admin": "123456" };
+document.getElementById("login-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var u = document.querySelector('[data-testid="login-username-input"]').value.trim();
+  var p = document.querySelector('[data-testid="login-password-input"]').value;
+  var err = document.querySelector('[data-testid="login-error-msg"]');
+  err.hidden = true;
+  if (!u || !p) { err.textContent = "用户名和密码不能为空"; err.hidden = false; return; }
+  if (USERS[u] !== p) { err.textContent = "用户名或密码错误"; err.hidden = false; return; }
+  window.location.href = "dashboard.html?user=" + encodeURIComponent(u);
+});
+</script>
+</body>
+</html>

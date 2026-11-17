@@ -1,0 +1,43 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# ---- 虚拟环境 ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- 测试与缓存 ----
+.pytest_cache/
+.cache/
+.coverage
+.coverage.*
+htmlcov/
+.stability/
+
+# ---- 时产物 ----
+assets/template_project/reports/*
+!assets/template_project/reports/.gitkeep
+assets/template_project/reports/logs/
+*.xlsx
+*.log
+recorded_raw.py
+
+# ---- 环境变量（含真实地址/账号，禁止入库）----
+.env
+.env.local
+.env.*.local
+
+# ---- 编辑器 / 系统 ----
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini

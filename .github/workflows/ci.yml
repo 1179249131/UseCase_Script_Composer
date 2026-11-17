@@ -1,0 +1,72 @@
+name: smoke
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # 双引擎冒烟：同一套用例分别跑 Playwright 与 Selenium，验证 PO/定位两层与引擎解耦
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [playwright, selenium]
+    name: e2e (${{ matrix.engine }})
+    defaults:
+      run:
+        working-directory: assets/template_project
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: assets/template_project/requirements.txt
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: 启动 demo 被测应用
+        run: |
+          python start_demo.py &
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:8765/login.html > /dev/null; then
+              echo "demo 已就绪"; exit 0
+            fi
+            sleep 0.5
+          done
+          echo "demo 启动超时" >&2; exit 1
+
+      - name: 运行用例
+        env:
+          BROWSER_ENGINE: ${{ matrix.engine }}
+          HEADLESS: "true"
+          BASE_URL: http://127.0.0.1:8765
+        run: pytest -v
+
+      - name: 定位体检（禁止 D 级）
+        run: python ../../scripts/locator_check.py --files locators/login_locators.py
+
+  # Python 3.7 语法闸门：用 3.7 解释器编译全部脚本，语法不兼容即失败
+  syntax-py37:
+    runs-on: ubuntu-22.04
+    name: syntax (python 3.7)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.7"
+
+      - name: 编译全部 Python 文件
+        run: |
+          python --version
+          python -m compileall -q scripts assets/template_project
+          echo "Python 3.7 语法闸门通过"
